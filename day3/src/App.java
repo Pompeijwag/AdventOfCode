@@ -12,6 +12,7 @@ public class App {
         }
     }
     //this is even more disgusting
+     
     public static String[] format = {"m", "u", "l", "("}; 
     public static String[] donot = {"d", "o", "n", "'", "t", "(", ")"};
     public static String[] doing = {"d", "o", "(", ")"};
