@@ -7,20 +7,20 @@ import java.util.Scanner;
 
 
 public class App {
-    @SuppressWarnings("unchecked")
     public static List<Integer> list1 = new ArrayList<>();
     public static List<Integer> list2 = new ArrayList<>();
     public static void main(String[] args) throws Exception {
-        File file = new File("C:\\VSCODE\\Java\\AdventOfCode\\Day1\\day1\\lib\\input.txt");
+        File file = new File("..\\lib\\input.txt");
         Scanner scan = new Scanner(file);
         
-        int answer = 0;
 
         while(scan.hasNext()){
             list1.add(Integer.parseInt(scan.next()));
             list2.add(Integer.parseInt(scan.next()));
         }
 
+        scan.close();
+        part1();
         part2();
     }
 

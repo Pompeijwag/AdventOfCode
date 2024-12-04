@@ -131,6 +131,7 @@ public class App {
             
             
         }
+        scan.close();
         System.out.println(answer);
     }
 }

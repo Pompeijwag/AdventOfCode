@@ -37,6 +37,7 @@ public class App {
             }
             
         }
+        scan.close();
         System.out.println(answer);
     }
     //this is so disgusting
