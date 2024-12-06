@@ -58,10 +58,6 @@ public class App {
                     posy = i;
                     posx = ii;
                 }
-                if(matrix[i][ii].equals("#"))
-                {
-                    position.add(posy * 100000 + posx);
-                }
                 
             }
             if(posy != Integer.MAX_VALUE)
@@ -71,6 +67,7 @@ public class App {
         }
 
         int guardpos = posy * 100000 + posx;
+        position.add(guardpos);
 
         while(inbound(posx + facingx[facing], posy + facingy[facing]))
         {
@@ -84,7 +81,7 @@ public class App {
                     facing = 0;
                 }
             }
-            else
+            else if(ob.equals("."))
             {
                 String[][] clone = new String[lengthy][lengthx];
                 for (int i = 0; i < lengthy; i++) {
@@ -145,21 +142,17 @@ public class App {
                         }
                     }
                 }
+                answer++;
+                matrix[posy][posx] = String.valueOf(facing);
+                posy = posy + facingy[facing];
+                posx = posx + facingx[facing];
+            }
+            else
+            {
+                matrix[posy][posx] = String.valueOf(facing);
+                posy = posy + facingy[facing];
+                posx = posx + facingx[facing];
                 
-                if(ob.equals("."))
-                {
-                    answer++;
-                    matrix[posy][posx] = String.valueOf(facing);
-                    posy = posy + facingy[facing];
-                    posx = posx + facingx[facing];
-                }
-                
-                else
-                {
-                    matrix[posy][posx] = String.valueOf(facing);
-                    posy = posy + facingy[facing];
-                    posx = posx + facingx[facing];
-                }
             }
             
         }
