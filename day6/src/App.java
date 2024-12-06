@@ -57,14 +57,20 @@ public class App {
                 {
                     posy = i;
                     posx = ii;
-                    break;
                 }
+                if(matrix[i][ii].equals("#"))
+                {
+                    position.add(posy * 100000 + posx);
+                }
+                
             }
             if(posy != Integer.MAX_VALUE)
             {
                 break;
             }
         }
+
+        int guardpos = posy * 100000 + posx;
 
         while(inbound(posx + facingx[facing], posy + facingy[facing]))
         {
@@ -170,6 +176,7 @@ public class App {
 
         System.out.println(answer);
         System.out.println(answer2);
-
+        System.out.println(position.contains(guardpos));
+        System.out.println((guardpos));
     }
 }
