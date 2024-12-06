@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class App {
     public static int lengthx = 0;
     public static int lengthy = 0;
+    public static int startx = 0;
+    public static int starty = 0;
     public static String[][] matrix;
 
     public static ArrayList<Integer> position = new ArrayList<>();
@@ -21,6 +23,7 @@ public class App {
         lengthx = getlength.nextLine().length();
         int answer2 = 0;
         lengthy = 1;
+        int debug = 0;
         getlength.reset();
         getlength.useDelimiter("");
         while(getlength.hasNextLine())
@@ -40,7 +43,13 @@ public class App {
         }
         scan.close();
         getlength.close();
-
+        String[][] original = new String[lengthy][lengthx];
+        for(int i = 0; i < matrix.length; i++){
+            for(int ii = 0; ii < matrix[0].length; ii++)
+            {
+                original[i][ii] = matrix[i][ii];
+            }
+        }
 
         int[] facingx = {0, 1, 0, -1};
         int[] facingy = {-1, 0, 1, 0};
@@ -48,6 +57,8 @@ public class App {
         int posy = Integer.MAX_VALUE;
         int posx = Integer.MAX_VALUE;
         int answer = 1;
+        boolean turned = false;
+        int turnsave = 0;
 
         for(int i = 0; i < matrix.length; i++)
         {
@@ -57,6 +68,8 @@ public class App {
                 {
                     posy = i;
                     posx = ii;
+                    startx = posx;
+                    starty = posy;
                 }
                 
             }
@@ -75,6 +88,8 @@ public class App {
             String ob = matrix[posy + facingy[facing]][posx + facingx[facing]];
             if(ob.equals("#"))
             {
+                turnsave = facing;
+                turned = true;
                 facing++;
                 if(facing > 3)
                 {
@@ -86,23 +101,28 @@ public class App {
                 String[][] clone = new String[lengthy][lengthx];
                 for (int i = 0; i < lengthy; i++) {
                     for(int ii = 0; ii < lengthx; ii++){
-                        clone[i][ii] = matrix[i][ii];
+                        clone[i][ii] = original[i][ii];
                     }
                 }
-                int cloneposy = posy;
-                int cloneposx = posx;
-                int clonefacing = facing;
+                int cloneposy = starty;
+                int cloneposx = startx;
+                int clonefacing = 0;
                 int doubleturn = 0;
                 int turn = 0;
-                int objectpos = (posy + facingy[clonefacing])* 100000 + (posx + facingx[clonefacing]);
+                boolean cloneturned = false;
+                int cloneturnsave = 0;
+                int objectpos = (posy + facingy[facing])* 100000 + (posx + facingx[facing]);
                 if(!(position.contains(objectpos)))
                 {
-                    clone[cloneposy + facingy[clonefacing]][cloneposx + facingx[clonefacing]] = "#";
+                    clone[posy + facingy[facing]][posx + facingx[facing]] = "#";
+                    position.add(objectpos);
                     while(inbound(cloneposx + facingx[clonefacing], cloneposy + facingy[clonefacing]))
                     {
                         String cloneob = clone[cloneposy + facingy[clonefacing]][cloneposx + facingx[clonefacing]];
                         if(cloneob.equals("#"))
                         {
+                            cloneturnsave = clonefacing;
+                            cloneturned = true;
                             turn++;
                             clonefacing++;
                             if(clonefacing > 3)
@@ -111,10 +131,9 @@ public class App {
                             }
                             if(turn == 2)
                             {
-                                if(doubleturn == 1)
+                                if(doubleturn >= 1)
                                 {
                                     answer2++;
-                                    position.add(objectpos);
                                     break;
                                 }
                                 doubleturn = 1;
@@ -124,6 +143,11 @@ public class App {
                         {
                             turn = 0;
                             clone[cloneposy][cloneposx] = String.valueOf(clonefacing);
+                            if(cloneturned)
+                            {
+                                cloneturned = false;
+                                clone[cloneposy][cloneposx] = String.valueOf(cloneturnsave);
+                            }
                             cloneposy = cloneposy + facingy[clonefacing];
                             cloneposx = cloneposx + facingx[clonefacing];
                         }
@@ -132,24 +156,40 @@ public class App {
                             turn = 0;
                             if(cloneob.equals(String.valueOf(clonefacing)))
                             {
-                                    answer2++;
-                                    position.add(objectpos);
+                                answer2++;
                                 break;
                             }
                             clone[cloneposy][cloneposx] = String.valueOf(clonefacing);
+                            if(cloneturned)
+                            {
+                                cloneturned = false;
+                                clone[cloneposy][cloneposx] = String.valueOf(cloneturnsave);
+                            }
                             cloneposy = cloneposy + facingy[clonefacing];
                             cloneposx = cloneposx + facingx[clonefacing];
+                            
                         }
                     }
                 }
                 answer++;
                 matrix[posy][posx] = String.valueOf(facing);
+                if(turned)
+                {
+                    turned = false;
+                    matrix[posy][posx] = String.valueOf(turnsave);
+                }
                 posy = posy + facingy[facing];
                 posx = posx + facingx[facing];
             }
             else
             {
+
                 matrix[posy][posx] = String.valueOf(facing);
+                if(turned)
+                {
+                    turned = false;
+                    matrix[posy][posx] = String.valueOf(turnsave);
+                }
                 posy = posy + facingy[facing];
                 posx = posx + facingx[facing];
                 
