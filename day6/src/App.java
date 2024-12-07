@@ -17,7 +17,7 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-         File file = new File("..\\lib\\input.txt");
+        File file = new File("..\\lib\\input.txt");
         Scanner scan = new Scanner(file).useDelimiter("");
         Scanner getlength = new Scanner(file).useDelimiter("");
         lengthx = getlength.nextLine().length();
@@ -71,6 +71,10 @@ public class App {
                     startx = posx;
                     starty = posy;
                 }
+                if(matrix[i][ii].equals("#"))
+                {
+                    position.add(i * 100000 + ii);
+                }
                 
             }
             if(posy != Integer.MAX_VALUE)
@@ -98,22 +102,23 @@ public class App {
             }
             else if(ob.equals("."))
             {
-                String[][] clone = new String[lengthy][lengthx];
-                for (int i = 0; i < lengthy; i++) {
-                    for(int ii = 0; ii < lengthx; ii++){
-                        clone[i][ii] = original[i][ii];
-                    }
-                }
-                int cloneposy = starty;
-                int cloneposx = startx;
-                int clonefacing = 0;
-                int doubleturn = 0;
-                int turn = 0;
-                boolean cloneturned = false;
-                int cloneturnsave = 0;
                 int objectpos = (posy + facingy[facing])* 100000 + (posx + facingx[facing]);
                 if(!(position.contains(objectpos)))
                 {
+                    String[][] clone = new String[lengthy][lengthx];
+                    for (int i = 0; i < lengthy; i++) {
+                        for(int ii = 0; ii < lengthx; ii++){
+                            clone[i][ii] = original[i][ii];
+                        }
+                    }
+                    int cloneposy = starty;
+                    int cloneposx = startx;
+                    int clonefacing = 0;
+                    int doubleturn = 0; 
+                    int turn = 0;
+                    boolean cloneturned = false;
+                    int cloneturnsave = 0;
+                
                     clone[posy + facingy[facing]][posx + facingx[facing]] = "#";
                     position.add(objectpos);
                     while(inbound(cloneposx + facingx[clonefacing], cloneposy + facingy[clonefacing]))
@@ -129,18 +134,24 @@ public class App {
                             {
                                 clonefacing = 0;
                             }
+                            
+                        }
+                        else if(cloneob.equals("."))
+                        {
                             if(turn == 2)
                             {
-                                if(doubleturn >= 1)
+                                if(doubleturn == 1)
                                 {
                                     answer2++;
                                     break;
                                 }
                                 doubleturn = 1;
                             }
-                        }
-                        else if(cloneob.equals("."))
-                        {
+                            else if(turn == 1)
+                            {
+                                doubleturn = 0;
+                            }
+                            
                             turn = 0;
                             clone[cloneposy][cloneposx] = String.valueOf(clonefacing);
                             if(cloneturned)
@@ -153,6 +164,19 @@ public class App {
                         }
                         else
                         {
+                            if(turn == 2)
+                            {
+                                if(doubleturn == 1)
+                                {
+                                    answer2++;
+                                    break;
+                                }
+                                doubleturn = 1;
+                            }
+                            else if(turn == 1)
+                            {
+                                doubleturn = 0;
+                            }
                             turn = 0;
                             if(cloneob.equals(String.valueOf(clonefacing)))
                             {
@@ -211,5 +235,6 @@ public class App {
         System.out.println(answer2);
         System.out.println(position.contains(guardpos));
         System.out.println((guardpos));
+        System.out.println((position.size()));
     }
 }

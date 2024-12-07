@@ -54,7 +54,7 @@ public class App {
             {
                 if(matrix[y][x].equals("X"))
                 {
-                    for(int i = 0; i < 8; i++)
+                    for(int i = 0; i < 8; i++) 
                     {
                         int xdepth = x;
                         int ydepth = y;
