@@ -17,7 +17,7 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        File file = new File("..\\lib\\input.txt");
+        File file = new File("..\\lib\\input.txt");         //get matrix
         Scanner scan = new Scanner(file).useDelimiter("");
         Scanner getlength = new Scanner(file).useDelimiter("");
         lengthx = getlength.nextLine().length();
@@ -42,7 +42,7 @@ public class App {
         scan.close();
         getlength.close();
 
-        for(int i = 0; i < lengthy; i++)
+        for(int i = 0; i < lengthy; i++)            //get all the types of antennas
         {
             for(int ii = 0; ii < lengthx; ii++)
             {
@@ -56,7 +56,7 @@ public class App {
             }
         }
 
-        String[][] clone = new String[lengthy][lengthx];
+        String[][] clone = new String[lengthy][lengthx];    //make a clone for clarity
         for(int i = 0; i < lengthy; i++)
         {
             for(int ii = 0; ii < lengthx; ii++)
@@ -68,7 +68,7 @@ public class App {
             System.out.println(" ");
         }
 
-        for(String n : feq)
+        for(String n : feq)         //check for each type of antenna
         {
             ArrayList<int[]> antenna = new ArrayList<>();
             for(int i = 0; i < lengthy; i++)
