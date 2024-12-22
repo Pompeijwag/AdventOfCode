@@ -110,18 +110,18 @@ public class App {
 
             }  
 
-            // for(int i = 0; i < lengthy; i++)
-            // {
-            //     for(int ii = 0; ii < lengthx; ii++)
-            //     {
-            //         System.out.print(matrix[i][ii]);
-            //     }
-            //     System.out.println("");
-            // }
-            // System.out.print(currenty);
-            // System.out.print(", ");
-            // System.out.print(currentx);
-            // System.out.println("");
+            for(int i = 0; i < lengthy; i++)
+            {
+                for(int ii = 0; ii < lengthx; ii++)
+                {
+                    System.out.print(matrix[i][ii]);
+                }
+                System.out.println("");
+            }
+            System.out.print(currenty);
+            System.out.print(", ");
+            System.out.print(currentx);
+            System.out.println("");
             
         }
 
@@ -203,20 +203,37 @@ public class App {
                 int iteration = 1;
                 while(inbound(currentx + (iteration * offsetx[direction]), currenty + (iteration * offsety[direction])))
                 {
-                    if(matrix[currenty + (iteration * offsety[direction])][currentx + (iteration * offsetx[direction])].equals(".") && matrix[currenty + (iteration * offsety[direction])][currentx + (iteration * offsetx[direction]) + look].equals(".") )
+                    if((matrix[currenty + (iteration * offsety[direction])][currentx + (iteration * offsetx[direction])].equals(".")) && (matrix[currenty + (iteration * offsety[direction])][currentx + (iteration * offsetx[direction]) + look].equals(".")))
                     {
                         for(int i = iteration; i > 0; i--)
                         {
-                            String temp = matrix[currenty + (i * offsety[direction])][currentx + (i * offsetx[direction])];
-                            matrix[currenty + (i * offsety[direction])][currentx + (i * offsetx[direction])] = matrix[currenty + ((i - 1) * offsety[direction])][currentx + ((i - 1) * offsetx[direction])];
-                            matrix[currenty + ((i - 1) * offsety[direction])][currentx + ((i - 1) * offsetx[direction])] = temp;
+                            if(!(i == 1 && save.equals("]")))
+                            {
+                                String temp = matrix[currenty + (i * offsety[direction])][currentx + (i * offsetx[direction])];
+                                matrix[currenty + (i * offsety[direction])][currentx + (i * offsetx[direction])] = matrix[currenty + ((i - 1) * offsety[direction])][currentx + ((i - 1) * offsetx[direction])];
+                                matrix[currenty + ((i - 1) * offsety[direction])][currentx + ((i - 1) * offsetx[direction])] = temp;
+                            }
+                            
+                        }
+                        for(int i = iteration; i > 0; i--)
+                        {
+                            if(!(i == 1 && save.equals("[")))
+                            {
+                                String temp = matrix[currenty + (i * offsety[direction])][currentx + (i * offsetx[direction]) + look];
+                                matrix[currenty + (i * offsety[direction])][currentx + (i * offsetx[direction]) + look] = matrix[currenty + ((i - 1) * offsety[direction])][currentx + ((i - 1) * offsetx[direction]) + look];
+                                matrix[currenty + ((i - 1) * offsety[direction])][currentx + ((i - 1) * offsetx[direction]) + look] = temp;
+                            }
                         }
 
                         currenty = currenty + offsety[direction];
                         currentx = currentx + offsetx[direction];    
                         break;
                     }
-                    else if(matrix[currenty + (iteration * offsety[direction])][currentx + (iteration * offsetx[direction])].equals("#"))
+                    else if(matrix[currenty + (iteration * offsety[direction])][currentx + (iteration * offsetx[direction])].equals("#") || matrix[currenty + (iteration * offsety[direction])][currentx + (iteration * offsetx[direction]) + look].equals("#"))
+                    {
+                        break;
+                    }
+                    else if(!matrix[currenty + (iteration * offsety[direction])][currentx + (iteration * offsetx[direction])].equals(save))
                     {
                         break;
                     }
