@@ -1,0 +1,1 @@
+<annotation><filename>ID_1_2023-04-15_17-56-56.jpeg</filename><size><width>640</width><height>480</height><depth>3</depth></size><object><name>ant</name><pose>Unspecified</pose><truncated>0</truncated><difficult>0</difficult><bndbox><xmin>275</xmin><ymin>266</ymin><xmax>314</xmax><ymax>298</ymax></bndbox></object></annotation>
