@@ -61,7 +61,7 @@ public class App {
                     if(leng % iii == 0){
                         double currentnumber = ii;
                         double comparitor = currentnumber % Math.pow(10, iii);
-                        //System.out.println("comparitor: " + comparitor);
+                        System.out.println("comparitor: " + comparitor);
                         currentnumber = Math.floor(currentnumber / Math.pow(10, iii));
                         while(currentnumber > 0){  
                             double section = currentnumber % Math.pow(10, iii);
