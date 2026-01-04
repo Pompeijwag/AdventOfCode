@@ -1,0 +1,8 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "2025/day10/lib/ejml-all-0.43-javadoc.jar",
+        "2025/day10/lib/ejml-all-0.43.jar"
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
+}
